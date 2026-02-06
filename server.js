@@ -1,9 +1,24 @@
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
+
+// Root route
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'Welcome to TODO API',
+    endpoints: {
+      getAllTodos: 'GET /todos',
+      getTodoById: 'GET /todos/:id',
+      getActiveTodos: 'GET /todos/active',
+      createTodo: 'POST /todos',
+      updateTodo: 'PUT /todos/:id',
+      deleteTodo: 'DELETE /todos/:id'
+    }
+  });
+});
 
 // In-memory data store
 let todos = [
